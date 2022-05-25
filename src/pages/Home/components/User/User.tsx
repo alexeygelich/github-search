@@ -23,7 +23,7 @@ const User: React.FC<Props> = ({ login, avatar_url }) => {
       <h1>{login}</h1>
       <div className="user-repo-wrapper">
         <h1>Repo:</h1>
-        {countRepos ? (
+        {countRepos !== undefined ? (
           <h1 className="user-repo">{countRepos}</h1>
         ) : (
           <ReactLoading
