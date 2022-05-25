@@ -1,0 +1,19 @@
+.repo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid dimgray;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  color:black;
+
+  &:hover {
+  border-color: darkcyan;
+}
+}
+
+.repo-forks {
+  margin-bottom: 5px;
+}
