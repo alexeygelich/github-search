@@ -27,12 +27,14 @@ export const useSearch = () => {
     if (searchValue !== urlSearchValue) {
       setSearchParams(`q=${searchValue}`);
     }
-  }, [searchValue, setSearchParams]);
+    // eslint-disable-next-line
+  }, [searchValue]);
 
   useEffect(() => {
     if (typeof urlSearchValue === 'string' && urlSearchValue !== searchValue) {
       form.setValue('search', urlSearchValue);
     }
+    // eslint-disable-next-line
   }, [urlSearchValue]);
 
   return { form, users };
