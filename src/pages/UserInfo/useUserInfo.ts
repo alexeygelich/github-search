@@ -1,22 +1,13 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useApi } from './useApi';
 import { useForm, useWatch } from 'react-hook-form';
 import { defaultValues } from './utils';
 import { SearchRepoValues } from './types';
 import { useMemo } from 'react';
-import { getErrorCode } from 'utils/getErrorCode';
-import { ErrorCodes } from 'utils/errorCodes';
-import { AxiosError } from 'axios';
-import { ROUTES } from 'config/routes';
 
 export const useUserInfo = () => {
-  const navigate = useNavigate();
   const { login } = useParams();
-  const { getUser, getUserRepos } = useApi(login);
-
-  if (getErrorCode(getUser?.error as AxiosError) === ErrorCodes.NOT_FOUND) {
-    navigate(ROUTES.HOME, { replace: true });
-  }
+  const { getUserCache, getUserReposCache } = useApi(login);
 
   const form = useForm<SearchRepoValues>({
     defaultValues
@@ -26,13 +17,13 @@ export const useUserInfo = () => {
 
   const filteredRepos = useMemo(() => {
     if (!searchValue) {
-      return getUserRepos.data;
+      return getUserReposCache;
     }
 
-    return getUserRepos.data?.filter(({ name }) =>
+    return getUserReposCache?.filter(({ name }) =>
       name.toLowerCase().includes(searchValue.toLowerCase())
     );
-  }, [searchValue, getUserRepos.data]);
+  }, [searchValue, getUserReposCache]);
 
-  return { user: getUser.data, form, filteredRepos };
+  return { user: getUserCache, form, filteredRepos };
 };

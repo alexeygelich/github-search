@@ -12,9 +12,9 @@ export const useRepos = (login: string) => {
     threshold: 0
   });
 
-  const { getUserRepos } = useApi(inView ? login : '');
+  const { getUserReposCache } = useApi(inView ? login : '');
 
-  const countRepos = getUserRepos.data?.length;
+  const countRepos = getUserReposCache?.length;
 
   return { countRepos, handleClick, ref };
 };
